@@ -4464,12 +4464,3 @@ if [[ -d $HOME/.zsh.d ]]; then
   done
 fi
 
-
-#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-[[ -s '/usr/local/lib/rvm' ]] && source '/usr/local/lib/rvm'
-
-
-export MULE_HOME=/home/tanglq/mule/mule-standalone-2.2.1
-export PATH=$MULE_HOME/bin:$PATH
-
