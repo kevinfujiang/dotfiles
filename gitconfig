@@ -22,7 +22,7 @@
 [remote "origin"]
   push = HEAD
 [github]
-  user = rmm5t
+  user = kevinfujiang
 [diff]
   ignoresubmodules = untracked
 [core]

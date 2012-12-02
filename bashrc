@@ -6,6 +6,10 @@ if [ -e /etc/bashrc ] ; then
   . /etc/bashrc
 fi
 
+if [ -e ~/.bash_develop ] ; then 
+  . ~/.bash_develop
+fi
+
 ############################################################
 ## PATH
 ############################################################
@@ -26,7 +30,7 @@ conditionally_prefix_path /usr/texbin
 conditionally_prefix_path ~/bin
 conditionally_prefix_path ~/bin/private
 
-PATH=.:./bin:${PATH}
+PATH=.:./bin:${PATH}:~/bin
 
 ############################################################
 ## MANPATH

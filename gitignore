@@ -3,3 +3,26 @@
 *.elc
 vendor/ruby
 public/assets
+#Android build 
+*.apk
+*.ap_
+*.dex
+#Java class file 
+*.class
+#generate files
+bin/
+gen/
+target/
+#local properties file
+local.properties
+project.properties
+
+#eclipse project file
+.classpath
+.project
+#intelij-IDEA project file
+*.iml
+.idea/
+
+#subversion file
+.svn/
