@@ -4427,10 +4427,12 @@ zrclocal
 # End:
 
 # {{{----------------------variables---------------------------------------
-export MAVEN_HOME=/home/xuxiaorong/Programs/apache-maven-3.0.1
-export TOMCAT_HOME=/home/xuxiaorong/Programs/apache-tomcat-6.0.29
-export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
-export ANT_HOME=/home/xuxiaorong/Programs/apache-ant-1.8.1
+export JAVA_HOME=`/usr/libexec/java_home -v 1.7`
+export ANT_HOME=$HOME/Programs/apache-ant-1.8.1
+export MAVEN_HOME=$HOME/Programs/apache-maven-3.0.4
+export TOMCAT_HOME=$HOME/Programs/apache-tomcat-6.0.29
+#export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
+#export JAVA_HOME=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
 export PATH=$ANT_HOME/bin:$MAVEN_HOME/bin:/opt/ruby1.8/bin:$PATH:$HOME/bin:/usr/local/bin
 
 export EDITOR='emacsclient -nw -a nano'
@@ -4464,3 +4466,9 @@ if [[ -d $HOME/.zsh.d ]]; then
   done
 fi
 
+
+
+[[ -s '/usr/local/lib/rvm' ]] && source '/usr/local/lib/rvm'
+
+
+export PATH=$MULE_HOME/bin:$PATH
