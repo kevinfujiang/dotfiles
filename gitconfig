@@ -29,3 +29,5 @@
   excludesfile = /Users/kevin/.gitignore
 [heroku]
   account = personal
+[pull]
+	rebase = true

@@ -1,7 +1,9 @@
 .DS_Store
 /TAGS
 *.elc
+.bundle
 vendor/ruby
+<<<<<<< HEAD
 public/assets
 #Android build 
 *.apk
@@ -26,3 +28,13 @@ project.properties
 
 #subversion file
 .svn/
+=======
+vendor/rbx
+vendor/jruby
+gemfiles/vendor
+*.rbc
+public/assets
+.rbenv-gemsets
+.rake_t_cache
+.powenv
+>>>>>>> 931dc216ac437afe650acc6b9a43f6651e23cf93

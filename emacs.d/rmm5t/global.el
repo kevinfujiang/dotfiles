@@ -1,7 +1,8 @@
 ;;; Generic emacs settings I cannot live without
 
-;; Use command as the meta key
-(setq ns-command-modifier (quote meta))
+;; Use command as the meta key; option key as super
+(setq ns-command-modifier 'meta)
+(setq ns-option-modifier  'super)
 
 ;; Don't show the startup screen
 (setq inhibit-startup-message t)
@@ -12,6 +13,7 @@
 ;; Highlight regions and add special behaviors to regions.
 ;; "C-h d transient" for more info
 (setq transient-mark-mode t)
+(pending-delete-mode t)
 
 ;; Display line and column numbers
 (setq line-number-mode    t)
@@ -32,7 +34,7 @@
 (set-default 'indicate-empty-lines t)
 
 ;; Line-wrapping
-(set-default 'fill-column 80)
+(set-default 'fill-column 78)
 
 ;; Prevent the annoying beep on errors
 ;; (setq visible-bell t)
@@ -51,7 +53,11 @@
 (server-start)
 
 ;; Trailing whitespace is unnecessary
-(add-hook 'before-save-hook (lambda () (whitespace-cleanup)))
+(defvar whitespace-cleanup-on-save t)
+;; (setq whitespace-cleanup-on-save nil)
+(add-hook 'before-save-hook
+          (lambda ()
+            (if whitespace-cleanup-on-save (whitespace-cleanup))))
 
 ;; Trash can support
 (setq delete-by-moving-to-trash t)

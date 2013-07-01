@@ -6,8 +6,8 @@
    (interactive)
    (shell-command-on-region (point-min) (point-max) "ruby"))
 
-;; FIXME: it should be available in next versions of ruby-mode.el
 (defun ruby-insert-end ()
+  "Insert \"end\" at point and reindent current line."
   (interactive)
   (insert "end")
   (ruby-indent-line t)
@@ -18,8 +18,9 @@
           (lambda ()
             ;; (ruby-electric-mode)
             (local-set-key [(control c) (control e)] 'ruby-insert-end)
-            (local-set-key [(control meta f1)] 'xmp)
+            (local-set-key [(control meta f1)] 'xmp) ;; gem install rcodetools
             (local-set-key [(control meta shift f1)] 'ruby-eval-buffer)
+            (local-set-key (kbd "TAB") 'smart-tab)
             ))
 
 (add-to-list 'auto-mode-alist '("Rakefile$" . ruby-mode))
@@ -33,6 +34,7 @@
 (add-to-list 'auto-mode-alist '("god$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("thor$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("gemspec$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("jbuilder$" . ruby-mode))
 
-
-
+;; Better indention for multi-line paren blocks
+(setq ruby-deep-indent-paren-style nil)

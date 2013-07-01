@@ -26,6 +26,7 @@ conditionally_prefix_path /usr/local/sbin
 conditionally_prefix_path /usr/local/share/python
 conditionally_prefix_path /usr/local/share/npm/bin
 conditionally_prefix_path /usr/local/mysql/bin
+conditionally_prefix_path /usr/local/heroku/bin
 conditionally_prefix_path /usr/texbin
 conditionally_prefix_path ~/bin
 conditionally_prefix_path ~/bin/private
@@ -58,6 +59,7 @@ function conditionally_prefix_cdpath {
 }
 
 conditionally_prefix_cdpath ~/work
+conditionally_prefix_cdpath ~/work/oss
 
 CDPATH=.:${CDPATH}
 
@@ -74,9 +76,11 @@ if [ `which rbenv 2> /dev/null` ]; then
   eval "$(rbenv init -)"
 fi
 
-if [ `which security 2> /dev/null` ]; then
-  export GITHUB_TOKEN=`security 2>&1 >/dev/null find-generic-password -gs github.token | ruby -e 'print $1 if STDIN.gets =~ /^password: \"(.*)\"$/'`
+if [ -f ~/.nvm/nvm.sh ]; then
+  . ~/.nvm/nvm.sh
 fi
+
+export RBXOPT=-X19
 
 ############################################################
 ## Terminal behavior
@@ -95,7 +99,7 @@ esac
 # Show the git branch and dirty state in the prompt.
 # Borrowed from: http://henrik.nyh.se/2008/12/git-dirty-prompt
 function parse_git_dirty {
-  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+  [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "*"
 }
 function parse_git_branch {
   git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
@@ -129,7 +133,7 @@ if [ `which rbenv-gemset 2> /dev/null` ]; then
   function gemset_prompt {
     local gemset=$(rbenv gemset active 2> /dev/null)
     if [ $gemset ]; then
-      echo " {gemset}"
+      echo " ${gemset}"
     fi
   }
 else
@@ -151,7 +155,7 @@ shopt -s extglob
 shopt -s checkwinsize
 
 export PAGER="less"
-export EDITOR="emacsclient -t"
+export EDITOR="emacsclient"
 
 ############################################################
 ## History
@@ -199,3 +203,10 @@ if [[ "$USER" == '' ]]; then
   # mainly for cygwin terminals. set USER env var if not already set
   USER=$USERNAME
 fi
+
+############################################################
+## Ruby Performance Boost (see https://gist.github.com/1688857)
+############################################################
+
+export RUBY_GC_MALLOC_LIMIT=60000000
+export RUBY_FREE_MIN=200000

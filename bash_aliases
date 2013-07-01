@@ -9,6 +9,24 @@ add-alias ()
 }
 
 ############################################################
+## Bash
+############################################################
+
+alias cd..="cd .."
+alias ..="cd .."
+alias ...="cd ../../"
+alias ....="cd ../../../"
+alias .2="cd ../../"
+alias .3="cd ../../../"
+alias .4="cd ../../../../"
+alias .5="cd ../../../../../"
+
+alias c="clear"
+
+alias path='echo -e ${PATH//:/\\n}'
+alias ax="chmod a+x"
+
+############################################################
 ## List
 ############################################################
 
@@ -42,7 +60,8 @@ alias gl="git pull"
 alias glr="git pull --rebase"
 alias gp="git push"
 alias gs="git status -sb"
-alias gg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+alias grp="git remote prune"
+alias gg="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci)%Creset' --abbrev-commit --date=relative"
 alias ggs="gg --stat"
 alias gsl="git shortlog -sn"
 alias gw="git whatchanged"
@@ -83,7 +102,7 @@ function st {
   if [ -d ".svn" ]; then
     svn status
   else
-    git status
+    git status -sb
   fi
 }
 
@@ -109,8 +128,6 @@ alias whotunes='lsof -r 2 -n -P -F n -c iTunes -a -i TCP@`hostname`:3689'
 ############################################################
 
 alias r="rake"
-alias a="autotest -q"
-alias aa="rake db:test:clone && a"
 alias rtags="ctags -e -R app lib vendor tasks"
 
 function gemdir {
@@ -147,22 +164,36 @@ function ignore_vendor_ruby {
 }
 
 alias b="bundle"
-alias bi="b install --path vendor"
+alias bi="b install --binstubs --path vendor"
 alias bil="bi --local"
 alias bu="b update"
 alias be="b exec"
-alias binit="bi && bundle package && ignore_vendor_ruby"
+alias binit="bi && bundle package"
+
+############################################################
+## Middleman
+############################################################
+alias m="be middleman"
+alias mpublish="m build --clean && m deploy"
 
 ############################################################
 ## Heroku
 ############################################################
 
+function heroku_command {
+  if [ -z "$*" ]; then
+    echo "run console"
+  else
+    echo "$*"
+  fi
+}
+
 function hstaging {
-  be heroku $* --remote staging
+  heroku `heroku_command $*` --remote staging
 }
 
 function hproduction {
-  be heroku $* --remote production
+  heroku `heroku_command $*` --remote production
 }
 
 ############################################################
@@ -185,13 +216,14 @@ alias repair-mongo="rm /usr/local/var/mongodb/mongod.lock && mongod --repair"
 ## Miscellaneous
 ############################################################
 
-if [ -f /Applications/Emacs.app/Contents/MacOS/Emacs ]; then
-  alias emacs='TERM=xterm-256color /Applications/Emacs.app/Contents/MacOS/Emacs'
-  alias emacsclient='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -t'
-  alias e='emacsclient'
-fi
+alias e='emacsclient'
+alias install_emacs_head='brew install emacs --HEAD --use-git-head --srgb --cocoa'
+alias install_emacs='brew install emacs --srgb --cocoa'
+alias upgrade_emacs='brew uninstall emacs && install_emacs'
+alias link_emacs='ln -snf /usr/local/Cellar/emacs/24.2/bin/emacs /usr/local/bin/emacs && ln -snf /usr/local/Cellar/emacs/24.2/bin/emacsclient /usr/local/bin/emacsclient'
 
-alias grep='GREP_COLOR="1;37;41" grep --color=auto'
+export GREP_COLOR="1;37;41"
+alias grep="grep --color=auto"
 alias wgeto="wget -q -O -"
 alias sha1="openssl dgst -sha1"
 alias sha2="openssl dgst -sha256"
@@ -206,7 +238,22 @@ alias whichlinux='uname -a; cat /etc/*release; cat /etc/issue'
 function serve {
   local port=$1
   : ${port:=3000}
-  ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => $port, :DocumentRoot => Dir.pwd); trap(%q(INT)) { s.shutdown }; s.start"
+  ruby -rwebrick -e"s = WEBrick::HTTPServer.new(:Port => $port, :DocumentRoot => Dir.pwd, :MimeTypes => WEBrick::HTTPUtils::load_mime_types('/etc/apache2/mime.types')); trap(%q(INT)) { s.shutdown }; s.start"
+}
+
+function eachd {
+  for dir in *; do
+    cd $dir
+    echo $dir
+    $1
+    cd ..
+  done
+}
+
+function fakefile {
+  let mb=$1
+  let bytes=mb*1048576
+  dd if=/dev/random of=${mb}MB-fakefile bs=${bytes} count=1 &> /dev/null
 }
 
 ############################################################

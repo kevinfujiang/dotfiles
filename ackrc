@@ -1,11 +1,15 @@
 --ignore-dir=log
 --ignore-dir=vendor
+--ignore-dir=node_modules
 
 --type-set
 json=json
 
 --type-set
 haml=haml
+
+--type-set
+slim=slim
 
 --type-set
 sass=sass,scss
@@ -21,4 +25,3 @@ erb=erb
 
 --type-add
 ruby=thor
-
