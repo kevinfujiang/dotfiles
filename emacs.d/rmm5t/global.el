@@ -24,7 +24,7 @@
 ;; (display-battery-mode 1)
 
 ;; Small fringes
-(set-fringe-mode '(1 . 1))
+;;(set-fringe-mode '(1 . 1))
 
 ;; Emacs gurus don't need no stinking scroll bars
 (when (fboundp 'toggle-scroll-bar)
@@ -39,7 +39,7 @@
 ;; Prevent the annoying beep on errors
 ;; (setq visible-bell t)
 
-;; Make sure all backup files only live in one place
+;; MAKE SURE ALL BACKUP files only live in one place
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
 ;; Gotta see matching parens
@@ -69,3 +69,5 @@
 
 ;; zap-up-to-char, forward-to-word, backward-to-word, etc
 (require 'misc)
+
+(setq default-directory "~/Workspace/")

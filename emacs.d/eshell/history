@@ -1,0 +1,14 @@
+ls
+ls
+ls -l
+git
+git st
+git st
+ls
+ls -l
+cd ..
+ls
+cd ..
+ls
+cd server/
+ls

@@ -23,11 +23,11 @@
 (load "rmm5t/zoom")
 (load "rmm5t/flymake")
 (load "rmm5t/javascript")
-(load "rmm5t/ri-emacs")
+;;(load "rmm8t/ri-emacs")
 (load "rmm5t/mac")
 (load "rmm5t/server-mode")
 (load "rmm5t/shell-mode")
-(load "rmm5t/ruby-mode")
+;; (load "rmm5t/ruby-mode")
 (load "rmm5t/private" 'noerror)
 
 ;; (load "rmm5t/hl-line")
@@ -54,8 +54,8 @@
 (vendor 'csv-mode      'csv-mode)
 (vendor 'yaml-mode     'yaml-mode)
 (vendor 'rcodetools    'xmp)
-(vendor 'dropdown-list) ;; Needed before yasnippet
-(vendor 'yasnippet)
+(vendor 'dropdown-list) ;; Needed before yasAnnippet
+;;(vendor 'yasnippet)
 (vendor 'jekyll)
 (vendor 'lua-mode      'lua-mode)
 (vendor 'feature-mode)

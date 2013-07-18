@@ -4472,3 +4472,7 @@ fi
 
 
 export PATH=$MULE_HOME/bin:$PATH
+export ANDROID_HOME=/Users/kevin/SDK/android-sdk-macosx
+export PATH=/usr/local/Cellar/emacs/24.3/bin/:$PATH
+
+alias emac='emacsclient -nw'
